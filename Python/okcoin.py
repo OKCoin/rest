@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 import httplib
 import urllib
 import json
@@ -15,7 +15,7 @@ class OKCoin():
         for k in sorted(params.keys()):
             if len(s) > 0:
                 s += '&'
-		s += k + '=' + str(params[k])
+            s += k + '=' + str(params[k])
         return md5.new(s + '&secret_key='+self.api_secret).hexdigest().upper()
 
     def __tapi_call(self, method, params={}):
@@ -29,14 +29,14 @@ class OKCoin():
         conn.request("POST", "/api/v1/%s.do" % method, temp_params, headers)
         response = conn.getresponse()
         data = json.load(response)
-		params.clear()
+        params.clear()
         conn.close()
         #print data
         res = data.get("result")
         if res == "true" or res == True:
             return data
         else:
-            raise Exception("error code %s" % data["errorCode"])
+            raise Exception("error code %s" % data["error_code"])
 
     def __api_call(self, method, pair):
         conn = httplib.HTTPSConnection("www.okcoin.cn", timeout=10) # 注意国际站 需要将 www.okcoin.cn 换成www.okcoin.com
@@ -73,7 +73,7 @@ class OKCoin():
         params = {
             "symbol" : tpair, # 国际站：btc_usd/ltc_usd  国内站  btc_cny/ltc_cny
             "type"   : ttype,
-            "rate"   : price,
+            "price"   : price,
             "amount" : amount
         }
         result = self.__tapi_call('trade', params)
