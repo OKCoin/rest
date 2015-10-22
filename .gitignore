@@ -1,3 +1,4 @@
 *.class
 JAVA/OkCoinRESTAPI/.settings/org.eclipse.jdt.core.prefs
 JAVA/OkCoinRESTAPI/.classpath
+*.pyc
