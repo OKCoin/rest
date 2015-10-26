@@ -18,6 +18,23 @@ class OKCoinSpot:
             params = 'symbol=%(symbol)s' %{'symbol':symbol}
         return httpGet(self.__url,TICKER_RESOURCE,params)
 
+    #Get btc/ltc kline info
+    def kline(self, symbol='btc_cny', ktype='1min', size=1, since=None):
+        KLINE_RESOURCE = "/api/v1/kline.do"
+        param_list = []
+        param_str = ""
+        if symbol:
+            param_list.append("symbol=%s" % symbol)
+        if ktype:
+            param_list.append("type=%s" % ktype)
+        if size:
+            param_list.append("size=%s" % size)
+        if since:
+            param_list.append("since=%s" % since)
+        if param_list:
+            param_str = "&".join(param_list)
+        return httpGet(self.__url, KLINE_RESOURCE, param_str)
+
     #获取OKCOIN现货市场深度信息
     def depth(self,symbol = ''):
         DEPTH_RESOURCE = "/api/v1/depth.do"

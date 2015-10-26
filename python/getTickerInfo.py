@@ -11,6 +11,7 @@ import time
 apikey = 'db052c78-71e1-4db6-ae7f-f9c659568c30'
 secretkey = '93cd90F4E914E8FD08A7DC5423F260C7'
 okcoinRESTURL = 'www.okcoin.cn'   #请求注意：国内账号需要 修改为 www.okcoin.cn  
+time_sleep = 5
 
 #现货API
 okcoinSpot = OKCoinSpot(okcoinRESTURL,apikey,secretkey)
@@ -24,19 +25,19 @@ print (u' 现货行情 ')
 count = 0
 trade_tmp = (okcoinSpot.ticker('btc_usd'))
 last_volume = float(trade_tmp['ticker']['vol'])
-time.sleep(10)
+time.sleep(time_sleep)
 
-while count<2:
+while count<12:
     trade_now = (okcoinSpot.ticker('btc_usd'))
     print (trade_now)
     date = trade_now['date']
     price = trade_now['ticker']['last']
     sum_volume = float(trade_now['ticker']['vol'])
     volume = sum_volume- last_volume
-    record_str = "%s,%s,%d\n" % (date, price, volume)
+    record_str = "%s,%s,%f\n" % (date, price, volume)
     trade_record_file.write(record_str)
     last_volume = sum_volume
     count = count + 1
-    time.sleep(10)
+    time.sleep(time_sleep)
 
 trade_record_file.close()
