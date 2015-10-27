@@ -10,7 +10,7 @@ import json
 
 #初始化apikey，secretkey,url
 apikey = 'db052c78-71e1-4db6-ae7f-f9c659568c30'
-secretkey = '93cd90F4E914E8FD08A7DC5423F260C7'
+secretkey = '93CD90F4E914E8FD08A7DC5423F260C7'
 okcoinRESTURL = 'www.okcoin.cn'   #请求注意：国内账号需要 修改为 www.okcoin.cn  
 
 #现货API
@@ -36,7 +36,6 @@ else:
 print (u' 现货K line ')
 
 kline_now = (okcoinSpot.kline(size=2))
-print (kline_now[0])
 since_now=kline_now[0][0]
 count=0
 while count >= 0:
@@ -45,7 +44,6 @@ while count >= 0:
         kline_now = (okcoinSpot.kline(size=2))
         if kline_now[0][0] <= since_now:
             continue;
-        print (kline_now[0])
         since_now = kline_now[0][0]
         kline_str = ",".join([str(ele) for ele in kline_now[0]])
         kline_record_file.write("%s\n" % kline_str)
