@@ -75,6 +75,17 @@ class OKCoinSpot:
         params['sign'] = buildMySign(params,self.__secretkey)
         return httpPost(self.__url,TRADE_RESOURCE,params)
 
+    def get_fee(self,symbol, order_id):
+        TRADE_RESOURCE = "/api/v1/order_fee.do"
+        params = {
+            'api_key':self.__apikey,
+            'symbol':symbol,
+            'order_id':order_id
+        }
+            
+        params['sign'] = buildMySign(params,self.__secretkey)
+        return httpPost(self.__url,TRADE_RESOURCE,params)
+
     #现货批量下单
     def batchTrade(self,symbol,tradeType,orders_data):
         BATCH_TRADE_RESOURCE = "/api/v1/batch_trade.do"

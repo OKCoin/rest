@@ -44,7 +44,7 @@ def loop(jd_count=2):
         done = False
         for i in range(jd_count)[::-1]:
             if i == 0:
-                context.portfolio.money_order(context.portfolio.cash, now_item['close'])
+                context.portfolio.money_order(context.portfolio.cash, now_item['open']*context.slippage)
                 context.order_count += 1
                 done=True
             elif (k_data.loc[time_slice-i+1]['close'] <= k_data.loc[time_slice-i]['close']):
@@ -53,7 +53,7 @@ def loop(jd_count=2):
         if not done:
             for i in range(jd_count)[::-1]:
                 if i == 0:
-                    context.portfolio.count_order(-context.portfolio.positions['btc'], now_item['close'])
+                    context.portfolio.count_order(-context.portfolio.positions['btc'], now_item['open']*context.slippage)
                     context.offer_count += 1
                 elif (k_data.loc[time_slice-i+1]['close'] >= k_data.loc[time_slice-i]['close']):
                     break;
@@ -73,5 +73,5 @@ print ("**********************DETAILS MIN****************************")
 print (values_data[['market_value','total_returns','daily_returns']].min())
 #print ("**********************DETAILS****************************")
 values_data.to_csv(log_file)
-print (values_data.describe())
+#print (values_data)
 log_file.close()
