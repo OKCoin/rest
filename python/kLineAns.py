@@ -31,7 +31,7 @@ values_list = []
 def init(cash):
     context.limit_cash = 5000
     #context.slippage = 1 - 0.000246
-    context.slippage = 1
+    context.slippage = 0.9999
 
 def loop(jd_count=2):
     data_lines = len(k_data.index)
@@ -44,7 +44,7 @@ def loop(jd_count=2):
         done = False
         for i in range(jd_count)[::-1]:
             if i == 0:
-                context.portfolio.money_order(context.portfolio.cash, now_item['close'])
+                context.portfolio.money_order(context.portfolio.cash/2, now_item['close']*1.0001)
                 context.order_count += 1
                 done=True
             elif (k_data.loc[time_slice-i+1]['close'] <= k_data.loc[time_slice-i]['close']):
@@ -53,7 +53,7 @@ def loop(jd_count=2):
         if not done:
             for i in range(jd_count)[::-1]:
                 if i == 0:
-                    context.portfolio.count_order(-context.portfolio.positions['btc'], now_item['close'])
+                    context.portfolio.count_order(-context.portfolio.positions['btc']/2, now_item['close']*context.slippage)
                     context.offer_count += 1
                 elif (k_data.loc[time_slice-i+1]['close'] >= k_data.loc[time_slice-i]['close']):
                     break;
