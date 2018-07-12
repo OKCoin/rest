@@ -132,7 +132,7 @@ namespace com.okcoin.rest.stock
         ///  获取放款深度前10
         /// </summary>
         private const String LEND_DEPTH_URL = "/api/v1/lend_depth.do";
-        private const String BORROWS_INFO_URL = "/api/v1/borrows_info.do"
+        private const String BORROWS_INFO_URL = "/api/v1/borrows_info.do";
         /// <summary>
         ///  申请借款
         /// </summary>
